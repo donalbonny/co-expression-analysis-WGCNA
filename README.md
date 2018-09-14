@@ -13,3 +13,5 @@ Useful links for the code
 7. UT Austin training on WCGNA  https://wikis.utexas.edu/display/bioiteam/Clustering+using+WGCNA
 
 
+8. Found the command line bootcamp which is really useful for beginner
+http://rik.smith-unna.com/command_line_bootcamp/?id=tb3uo8zpxks
