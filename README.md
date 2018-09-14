@@ -18,24 +18,5 @@ http://rik.smith-unna.com/command_line_bootcamp/?id=tb3uo8zpxks
 
 
 
-# Get  gene name from biomaRt, Arabidopsis gene names. 
+ Get  gene name from biomaRt, Arabidopsis gene names. I figured out this is so much easier than the traditionally method that I used before to combine gene name from TAIR website with my results. Instead using biomaRt and choose athaliana_eg_gene  from host =plants.ensembl.org
 
-marts <- listMarts()
-marts
-marts <- listMarts(host = "plants.ensembl.org")
-marts 
-plants_mart <- useMart("plants_mart", host = "plants.ensembl.org" )
-listDatasets(plants_mart)
-
-
-plants_mart <- useMart("plants_mart", dataset = "athaliana_eg_gene", host="plants.ensembl.org" )
-listAttributes(plants_mart)
-
-
-
-t2g <- getBM(attributes = c("ensembl_transcript_id", 
-                            "ensembl_gene_id", 
-                            "description",
-                            "external_gene_name"), 
-             mart = plants_mart)
-ttg <- dplyr::rename(t2g, target_id= ensembl_transcript_id, ens_gene = ensembl_gene_id, ext_gene = external_gene_name)
