@@ -11,10 +11,12 @@ Useful links for the code
 5. UT Austin RNA-seq training  https://wikis.utexas.edu/display/bioiteam/Pseudomapping+with+Kallisto
 6. I used MultiQC to examine the quality of multiple samples and give nice summary of FASTQC https://github.com/ewels/MultiQC 
 7. UT Austin training on WCGNA  https://wikis.utexas.edu/display/bioiteam/Clustering+using+WGCNA
+8. WGCNA slides https://pdfs.semanticscholar.org/ecac/5c1dc9dcbe6845abfd34e12ca091d3f993fb.pdf
 
-
-8. Found the command line bootcamp which is really useful for beginner
+9. Found the command line bootcamp which is really useful for beginner
 http://rik.smith-unna.com/command_line_bootcamp/?id=tb3uo8zpxks
+
+
 
 
 
