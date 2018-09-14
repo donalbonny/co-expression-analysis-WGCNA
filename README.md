@@ -1,6 +1,6 @@
-# light_signaling_dataset
+# WGCNA analysis using RNA-seq datasets
 
-WGCNA analysis using RNA-seq datasets
+
 
 Useful links for the code 
 
