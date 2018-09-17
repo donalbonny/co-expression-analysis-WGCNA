@@ -21,4 +21,5 @@ http://rik.smith-unna.com/command_line_bootcamp/?id=tb3uo8zpxks
 
 
  Get  gene name from biomaRt, Arabidopsis gene names. I figured out this is so much easier than the traditionally method that I used before to combine gene name from TAIR website with my results. Instead using biomaRt and choose athaliana_eg_gene  from host =plants.ensembl.org
+ However, Kallisto is not used for mapping novel transcripts. 
 
