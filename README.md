@@ -16,6 +16,7 @@ Useful links for the code
 9. Found the command line bootcamp which is really useful for beginner
 http://rik.smith-unna.com/command_line_bootcamp/?id=tb3uo8zpxks
 
+10. https://edu.isb-sib.ch/pluginfile.php/158/course/section/65/_01_SIB2016_wgcna.pdf
 
 
 
