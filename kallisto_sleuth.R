@@ -1,0 +1,118 @@
+getwd()
+setwd("C:/Users/vp6445/Desktop/WGCNA_project/kallisto_sleuth/")
+
+
+# Load library
+
+source("http://bioconductor.org/biocLite.R")
+biocLite("devtools")    # only if devtools not yet installed
+biocLite("rhdf5")
+library(devtools)
+
+devtools::install_github("pachterlab/sleuth")
+
+biocLite("biomaRt")
+#Load library
+
+
+library(limma)
+library(sleuth)
+
+
+library(biomaRt)
+library(ggplot2)
+
+biocLite("tximport")
+
+
+browseVignettes("tximport")
+library(tidyverse)
+sample_id <- dir(file.path("kallisto"))
+kal_dirs <- file.path("kallisto", sample_id)
+
+kal_dirs
+s2c<-read.csv("treatment.csv",header = TRUE, stringsAsFactors=FALSE)
+
+s2c <- mutate(s2c, path = kal_dirs)
+s2c
+
+
+
+
+
+#get gene name from BiomaRt
+marts <- listMarts()
+marts
+marts <- listMarts(host = "plants.ensembl.org")
+marts 
+plants_mart <- useMart("plants_mart", host = "plants.ensembl.org" )
+listDatasets(plants_mart)
+
+
+plants_mart <- useMart("plants_mart", dataset = "athaliana_eg_gene", host="plants.ensembl.org" )
+listAttributes(plants_mart)
+
+
+
+t2g <- getBM(attributes = c("ensembl_transcript_id", 
+                            "ensembl_gene_id", 
+                            "description",
+                            "external_gene_name"), 
+             mart = plants_mart)
+ttg <- dplyr::rename(t2g, target_id= ensembl_transcript_id, ens_gene = ensembl_gene_id, ext_gene = external_gene_name)
+
+# Sleuth_prep
+
+
+so <- sleuth_prep(s2c,target_mapping = ttg, extra_bootstrap_summary = TRUE, read_bootstrap_tpm=TRUE)
+
+plot_pca(so, color_by = 'condition')
+
+
+
+
+#We first fit a full model that includes a paramter for the condition
+
+so <- sleuth_fit(so, ~condition, 'full')
+
+#Next, we fit a reduced model that only includes the intercept
+
+so <- sleuth_fit(so, ~1, 'reduced')
+
+
+so <- sleuth_lrt(so, 'reduced', 'full')
+
+
+ 
+ 
+ # 31060 significant genes were found 
+ 
+
+models(so)
+
+#shiny 
+
+sleuth_live(so)
+
+
+#extract significant data 
+
+sleuth_table <- sleuth_results(so, 'reduced:full', 'lrt', show_all = FALSE)
+
+sleuth_significant <- dplyr::filter(sleuth_table, qval <= 0.05)
+
+head(sleuth_significant)
+
+dim(sleuth_table)
+dim(sleuth_significant)
+write.csv(sleuth_significant, "slueth_significant.csv")
+
+# check specific genes plot_bootsrap
+
+plot_bootstrap(so, "AT3G59060.1", units = "est_counts", color_by = "condition")  
+
+plot_bootstrap(so, "AT3G59060.1", units = "tpm", color_by = "condition")
+
+# add the Wald test
+wald_test <- colnames(design_matrix(so))[2]
+so <- sleuth_wt(so, wald_test)
