@@ -1,0 +1,91 @@
+#txpimport input kallisto to deseq2
+
+library("tximport")
+library("readr")
+library("tximportData")
+
+samples <- read.csv(file.path("treatment.csv"), header=TRUE)
+conditions <-  c(rep("Red 5 days",3), rep("FR 3h ",1), rep("Blue 4days",2), rep("Low Blue 1h",2), rep("White Light 1h", 2), 
+                 rep("Low Blue 6h",2), rep("White Light 6h", 2), rep("Low Blue 24h", 2), rep("White Light 24h", 2), rep("White Light 18 days",3), 
+                 rep("High Light 20s",3), rep("High Light 60s", 3), rep("Low Blue 16h", 2), rep("White Light 16h", 2), rep("Cotyledon Dark", 3), 
+                 rep("Hypocotyl Dark", 2), rep("Cotyledon Light 1h", 2), rep("Hypocotyl Light 1h", 2), rep("Cotyledon Light 6h", 1), rep("Hypocotyl Light 6h", 2),
+                 rep("Dark 4 days", 3), rep("Red 3h,", 3), rep("Red 2 days", 3), rep("White Light 30 days", 3), rep("Red 1h",3))
+                                                                                                                                                                                                                                                                                                                                                                                                              
+
+sampleTable <- data.frame( condition = conditions)
+sampleTable
+head(samples)
+rownames(samples) <- samples$sample
+
+files <- file.path("kallisto", samples$sample, "abundance.h5")
+
+files
+names(files) <- samples$sample
+
+names(files)
+tx2gene <- read.csv("transcript_gene_mapping_full.csv")
+
+head(tx2gene)
+txi <- tximport(files, type="kallisto", tx2gene=tx2gene)
+head(tx2gene)
+
+file.exists(files)
+
+## COnstruct Deseqdataset from txi 
+
+
+deseq <- DESeqDataSetFromTximport(txi,
+                                   colData = samples,
+                                   design = ~ condition)
+deseq
+
+keep <- rowSums(counts(deseq)) >= 10
+
+deseq <- deseq[keep,]
+
+deseq <- DESeq(deseq)
+
+#Variance transform deseq
+
+vsdB <- varianceStabilizingTransformation(deseq)
+pca <-  plotPCA(vsdB,intgroup = c ("condition"), returnData = TRUE) 
+percentVar <- round(100 * attr(pca, "percentVar"))
+pca
+
+cbPalette <- c("red", "blue", "violetred", "black", "pink", "purple", "cyan", "green", "yellow", "orange","magenta", "chocolate", "tan", 
+               "turquoise", "midnightblue", "greenyellow", "darkcyan", "coral4", "lightseagreen", "maroon", "khaki", "salmon", "tomato1", "blue4", "deeppink4")
+
+
+p <-  ggplot(pca, aes(PC1, PC2, color= condition)) +
+  geom_point(size=4) +
+  xlab(paste0("PC1: ",percentVar[1],"% variance")) +
+  ylab(paste0("PC2: ",percentVar[2],"% variance")) + 
+  coord_fixed()+
+  scale_colour_manual(values=cbPalette)+
+  theme(text = element_text(size=20))
+
+
+vignette("DESeq2")
+ggsave(p, "pca.pdf", width = 10, height = 10)
+
+#heatmap pf most 100 differential genes
+
+vsdB_table <- as.data.frame(assay(vsdB))
+vsdB_table_rowsum <- transform(vsdB_table, sum = rowSums(vsdB_table))
+colnames(vsdB_table_rowsum)
+head(vsdB_table_rowsum)
+
+
+write.csv(vsdB_table, "vst_tpm.csv")
+
+vsdB_table <-  read.csv("vst_tpm.csv", row.names = 1)
+
+dim(vsdB_table)
+head(vsdB)
+dev.off()
+
+selected <- order(vsdB_table_rowsum$sum, decreasing = TRUE)[1:100]
+vsdB_table[selected,]
+heatmap(as.matrix(vsdB_table[selected,]),  dendrogram = "column", Rowv = T, labRow = NA)
+
+
