@@ -1,6 +1,3 @@
-getwd()
-setwd("C:/Users/vp6445/Desktop/WGCNA_project/kallisto_sleuth/")
-
 
 # Load library
 
@@ -37,9 +34,6 @@ s2c <- mutate(s2c, path = kal_dirs)
 s2c
 
 
-
-
-
 #get gene name from BiomaRt
 marts <- listMarts()
 marts
@@ -67,8 +61,6 @@ ttg <- dplyr::rename(t2g, target_id= ensembl_transcript_id, ens_gene = ensembl_g
 so <- sleuth_prep(s2c,target_mapping = ttg, extra_bootstrap_summary = TRUE, read_bootstrap_tpm=TRUE)
 
 plot_pca(so, color_by = 'condition')
-
-
 
 
 #We first fit a full model that includes a paramter for the condition
