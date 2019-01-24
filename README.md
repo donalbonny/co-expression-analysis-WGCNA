@@ -18,7 +18,7 @@ http://rik.smith-unna.com/command_line_bootcamp/?id=tb3uo8zpxks
 
 10. https://edu.isb-sib.ch/pluginfile.php/158/course/section/65/_01_SIB2016_wgcna.pdf
 
-
+11. [Analysis of RNA-seq. PCA for outliers](https://www.huber.embl.de/users/klaus/Teaching/DESeq2Predoc2014.html)
 
 
  Get  gene name from biomaRt, Arabidopsis gene names. I figured out this is so much easier than the traditionally method that I used before to combine gene name from TAIR website with my results. Instead using biomaRt and choose athaliana_eg_gene  from host =plants.ensembl.org
