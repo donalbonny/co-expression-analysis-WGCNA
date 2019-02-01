@@ -21,6 +21,7 @@ http://rik.smith-unna.com/command_line_bootcamp/?id=tb3uo8zpxks
 11. [Analysis of RNA-seq. PCA for outliers](https://www.huber.embl.de/users/klaus/Teaching/DESeq2Predoc2014.html)
 12. [Training on Differential gene expression, especially PCA to check sample quality](https://hbctraining.github.io/DGE_workshop/lessons/03_DGE_QC_analysis.html)
 
+13. Lots of genomics data analysis references [here](http://www.begenomics.com/tutorial/#threeprnaseq) 
 
  Get  gene name from biomaRt, Arabidopsis gene names. I figured out this is so much easier than the traditionally method that I used before to combine gene name from TAIR website with my results. Instead using biomaRt and choose athaliana_eg_gene  from host =plants.ensembl.org
  However, Kallisto is not used for mapping novel transcripts. 
