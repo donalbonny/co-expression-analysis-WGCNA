@@ -5,11 +5,7 @@ library("readr")
 library("tximportData")
 
 samples <- read.csv(file.path("treatment.csv"), header=TRUE)
-conditions <-  c(rep("Red 5 days",3), rep("FR 3h ",1), rep("Blue 4days",2), rep("Low Blue 1h",2), rep("White Light 1h", 2), 
-                 rep("Low Blue 6h",2), rep("White Light 6h", 2), rep("Low Blue 24h", 2), rep("White Light 24h", 2), rep("White Light 18 days",3), 
-                 rep("High Light 20s",3), rep("High Light 60s", 3), rep("Low Blue 16h", 2), rep("White Light 16h", 2), rep("Cotyledon Dark", 3), 
-                 rep("Hypocotyl Dark", 2), rep("Cotyledon Light 1h", 2), rep("Hypocotyl Light 1h", 2), rep("Cotyledon Light 6h", 1), rep("Hypocotyl Light 6h", 2),
-                 rep("Dark 4 days", 3), rep("Red 3h,", 3), rep("Red 2 days", 3), rep("White Light 30 days", 3), rep("Red 1h",3))
+conditions <-  
                                                                                                                                                                                                                                                                                                                                                                                                               
 
 sampleTable <- data.frame( condition = conditions)
