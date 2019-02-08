@@ -1,5 +1,4 @@
-﻿getwd()
-setwd("C:/Users/vp6445/Desktop/WGCNA_project/kallisto_sleuth/")
+
 
 set.seed(2018)
 
