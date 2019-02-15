@@ -39,7 +39,7 @@ Instead using biomaRt and choose athaliana_eg_gene  from host =plants.ensembl.or
  
  
 Other turotials
-* [Venn diagram] (http://rstudio-pubs-static.s3.amazonaws.com/13301_6641d73cfac741a59c0a851feb99e98b.html)
+* [Venn diagram](http://rstudio-pubs-static.s3.amazonaws.com/13301_6641d73cfac741a59c0a851feb99e98b.html)
 
  
 
