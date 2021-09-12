@@ -1,6 +1,6 @@
 # WGCNA analysis using RNA-seq datasets
 
-
+My main codes follow the instruction from [Horvath lab](https://horvath.genetics.ucla.edu/html/CoexpressionNetwork/Rpackages/WGCNA/Tutorials/index.html)
 
 Useful links for the code 
 
