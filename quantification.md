@@ -9,7 +9,7 @@ abundance.h5
 abudance.txt
 run_info.json
 
-# use h5 file and metadata file ( treatment) --> Heatmap and deseq2
+### use h5 file and metadata file ( treatment) --> Heatmap and deseq2
 
 
 
